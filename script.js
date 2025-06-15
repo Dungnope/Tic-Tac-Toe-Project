@@ -12,7 +12,8 @@
     const board = document.querySelector("#board");
     const cell = document.querySelectorAll(".cell__item");
     const button = document.querySelector("button");
-    const container = document.getElementById("container");    
+    const container = document.getElementById("container");   
+    const scoreBoard = document.createElement("p"); 
     let itemwrite = "";
     let allposition = ["", "", "", "", "", "", "", "", ""];
     function user(sign, point)
@@ -20,7 +21,7 @@
         this.symbol = sign;
         this.point = point;
 
-        function plusPoint()
+        this.plus = function plusPoint()
         {
             this.point += 1;
         }
@@ -68,9 +69,11 @@
             item.classList.remove("winclass");
         })
         itemwrite = "";
-        allposition = [];
+        allposition = ["", "", "", "", "", "", "", "", ""];
         cell.forEach(item => addEventListener("click", playGame))
+        if(container.lastChild.classList.contains("winnerdeclare")) container.removeChild(container.lastChild);
     }
+    
     function playGame(e){
         e.stopImmediatePropagation();
         if(e.target.matches(".cell__item") && e.target.textContent === "")
@@ -85,7 +88,27 @@
                 cell[winnerCondition[stopcondition.answer][0]].classList.add("winclass");
                 cell[winnerCondition[stopcondition.answer][1]].classList.add("winclass");
                 cell[winnerCondition[stopcondition.answer][2]].classList.add("winclass");
-                cell.forEach(item => removeEventListener("click", playGame))
+                if(player1.symbol === cell[winnerCondition[stopcondition.answer][0]].textContent)
+                {
+                    player1.plus();
+                }
+                else
+                {
+                    player2.plus();
+                }
+                cell.forEach(item => removeEventListener("click", playGame));
+                const score = `${player1.symbol}: ${player1.point} - ${player2.symbol}: ${player2.point}`;
+                scoreBoard.setHTMLUnsafe(score);
+                scoreBoard.classList.add("winnerdeclare");
+                container.append(scoreBoard);
+            }
+            else if(!stopcondition.stop && !allposition.includes(``))
+            {
+                const score = `It's draw`;
+                const drawdeclare = document.createElement("p");
+                drawdeclare.setHTMLUnsafe(score);
+                drawdeclare.classList.add("winnerdeclare");
+                container.append(drawdeclare);
             }
         }
     }

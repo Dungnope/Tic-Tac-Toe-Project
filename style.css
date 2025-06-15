@@ -34,7 +34,7 @@ p{
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-  margin: auto;
+  margin: 20px auto;
   background-color: rgb(0, 0, 0);
   gap: 5px;
   display: grid;
@@ -69,4 +69,21 @@ button{
 
 .winclass{
   color: red;
+}
+
+.winnerdeclare{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 270px;
+  height: 270px;
+  background: rgba(255, 255, 255, 0.28);
+  border-radius: 16px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(5.3px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
